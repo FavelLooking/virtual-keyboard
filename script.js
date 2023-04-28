@@ -34,21 +34,32 @@ keys.forEach(singleKey => {
   mainContainer.appendChild(key);
   key.appendChild(keyText);
   key.classList.add("key")
+  console.log(keyText)
 
-  if (key === "Backspace" || key === "Tab" || key === "Del" || key === "Enter" || key === "CapsLock" || key === "Enter" || key === "Shift" || key === "Ctrl" || key === "▶" || key === "◀" || key === "▼" || key === "▲") {
-    
+  switch (keyText.nodeValue) {
+    case "Backspace": key.id = "backspace";
+    break;
+    case "Tab": key.id = "tab";
+    break;
+    case "CapsLock": key.id = "caps-lock";
+    break;
+    case "Shift": key.id = "shift";
+    break;
+    case "Del": key.id = "del";
+    break;
+    case "Enter": key.id = "enter";
+    break;
+    case " ": key.id = "space";
+    break;
+    case "Ctrl": key.id = "ctrl";
+    break;
   }
 
-  switch (key) {
-    case "Backspace": key.id("backspace");
-    break;
-    case "Tab": key.id("tab");
-    break;
-    case "CapsLock": key.id("caps-lock");
-    break;
-    case "Shift": key.id("shift");
-    break;
+  if (singleKey === "Backspace" || singleKey === "Tab" || singleKey === "Del" || singleKey === "Enter" || singleKey === "CapsLock" || singleKey === "Enter" || singleKey === "Shift" || singleKey === "Ctrl" || singleKey === "▶" || singleKey === "◀" || singleKey === "▼" || singleKey === "▲" || singleKey === "Win"|| singleKey === "Alt") {
+    return key.classList.add("key-dark")
   }
+
+
 })
 
 //Keys

@@ -6,15 +6,15 @@
 
 .keyboard-container {
   width: 700px;
-  height: 250px;
-  background-color: blueviolet;
+  background-color: rgba(137, 43, 226, 0.633);
   margin: 0 auto;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 5px;
-  padding-left: 1px;
-  padding-right: 1px;
-  padding-top: 5px;
+  gap: 3px;
+  padding: 5px 1px 5px 3px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .textarea {
@@ -24,18 +24,42 @@
 }
 
 .key {
-  padding: 1px 15px 0;
+  padding: 1px 3px 0 3px;
   height: 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color:rgb(110, 104, 101);
   font-family: 'Roboto', sans-serif;
   color: #fafafa;
+  width: 35px;
 }
 
-#delKey {
-  width: 60px;
+.key-dark {
+  background-color:rgb(71, 67, 63);
+}
+
+#backspace {
+  width: 90px;
+}
+
+#tab {
+  width: 45px;
+}
+
+#caps-lock,
+#enter,
+#shift {
+  width: 85px;
+}
+
+#space {
+  width: 313px;
+}
+
+#ctrl{
+  width: 37.5px;
 }
 
