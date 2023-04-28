@@ -16,6 +16,14 @@ let wrapper = document.createElement("div");
 let textArea = document.createElement("textarea");
 let mainContainer = document.createElement("div");
 let keys = ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "+", "Backspace", "Tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\", "Del", "CapsLock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "Enter", "Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "▲", "Shift", "Ctrl", "Win", "Alt", " ", "Alt",  "◀", "▼", "▶", "Ctrl"]
+let key;
+let cursorPos;
+
+// Code for moving cursor in textarea
+
+// let cursorPos = textArea.selectionStart;
+// let cursorPos1 = textArea.selectionEnd;
+
 
 mainContainer.classList.add("keyboard-container");
 textArea.classList.add("textarea");
@@ -29,12 +37,11 @@ wrapper.appendChild(mainContainer);
 //iterationg over an array
 
 keys.forEach(singleKey => {
-  let key = document.createElement("div");
+  key = document.createElement("button");
   let keyText = document.createTextNode(singleKey)
   mainContainer.appendChild(key);
   key.appendChild(keyText);
   key.classList.add("key")
-  console.log(keyText)
 
   switch (keyText.nodeValue) {
     case "Backspace": key.id = "backspace";
@@ -56,17 +63,57 @@ keys.forEach(singleKey => {
   }
 
   if (singleKey === "Backspace" || singleKey === "Tab" || singleKey === "Del" || singleKey === "Enter" || singleKey === "CapsLock" || singleKey === "Enter" || singleKey === "Shift" || singleKey === "Ctrl" || singleKey === "▶" || singleKey === "◀" || singleKey === "▼" || singleKey === "▲" || singleKey === "Win"|| singleKey === "Alt") {
-    return key.classList.add("key-dark")
+    key.classList.add("key-dark")
   }
-
-
 })
 
-//Keys
-// let delKeyText = "Del"
-// let delKey = document.querySelector(`.key[data-value="Del"]`);
-// delKey.id = "delKey"
+//pressing buttons on virtual keyboard
 
+let allButtons = document.querySelectorAll('button');
 
+let addSymbolToTextArea = (event) => {
+  cursorPos = textArea.selectionStart;
+  console.log(cursorPos)
+  textArea.focus();
 
+  switch (event.target.innerText) {
+    case "Backspace": 
+    textArea.value = textArea.value.slice(0, cursorPos-1) + textArea.value.slice(cursorPos);
+    textArea.selectionStart = cursorPos - 1;
+    textArea.selectionEnd = cursorPos - 1;
+    break;
+  
+    // case "Tab": key.id = "tab";
+    // break;
+    // case "CapsLock": key.id = "caps-lock";
+    // break;
+    // case "Shift": key.id = "shift";
+    // break;
+    // case "Del": key.id = "del";
+    // break;
+    // case "Enter": key.id = "enter";
+    // break;
+    // case " ": key.id = "space";
+    // break;
+    // case "Ctrl": key.id = "ctrl";
+    // break;
+    default:
+    textArea.value += event.target.innerText
+  }
 
+}
+
+for (let i = 0; i < allButtons.length; i++) {
+  allButtons[i].addEventListener("click", addSymbolToTextArea);
+}
+
+// listeners for TextArea
+
+textArea.addEventListener("input", ()=> {
+  cursorPos = textArea.selectionStart;
+  console.log(cursorPos)
+});
+textArea.addEventListener("click", ()=> {
+  cursorPos = textArea.selectionStart;
+  console.log(cursorPos)
+});

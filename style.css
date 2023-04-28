@@ -34,7 +34,7 @@
   background-color:rgb(110, 104, 101);
   font-family: 'Roboto', sans-serif;
   color: #fafafa;
-  width: 35px;
+  width: 42.6px;
 }
 
 .key-dark {
@@ -52,7 +52,7 @@
 #caps-lock,
 #enter,
 #shift {
-  width: 85px;
+  width: 90px;
 }
 
 #space {
@@ -60,6 +60,6 @@
 }
 
 #ctrl{
-  width: 37.5px;
+  width: 45px;
 }
 
