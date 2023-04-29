@@ -29,7 +29,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc92;
   border-radius: 5px;
   background-color:rgb(110, 104, 101);
   font-family: 'Roboto', sans-serif;
@@ -39,10 +39,11 @@
 
 button:hover {
   background-color: #f6fd72c5;
-  color: white;
+  color: #67237F	
 }
 
-button:active {
+button:active,
+.active {
   background-color: #F5FD72;
   color: #52026E;
   border-radius: 12px;
@@ -59,7 +60,7 @@ button:active {
 }
 
 #tab {
-  width: 45px;
+  width: 42.6px;
 }
 
 #caps-lock,
