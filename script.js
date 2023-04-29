@@ -35,6 +35,10 @@ document.body.appendChild(wrapper);
 wrapper.appendChild(textArea);
 wrapper.appendChild(mainContainer);
 
+
+//trying to add data-attribute for all buttons in virtual keyboard
+//done! look lower!
+
 //iterationg over an array
 
 keys.forEach(singleKey => {
@@ -43,6 +47,7 @@ keys.forEach(singleKey => {
   mainContainer.appendChild(key);
   key.appendChild(keyText);
   key.classList.add("key")
+  key.dataset.key = singleKey;
 
   switch (keyText.nodeValue) {
     case "Backspace": key.id = "backspace";
@@ -141,3 +146,15 @@ textArea.addEventListener("keydown", (e)=> {
     textArea.selectionEnd = cursorPos+1;
   }
 });
+
+//virtual keyboard button highlight when pressing on keayboard
+document.addEventListener("keydown", (event) => {
+  console.log("key:" + event.key,"event:" + event)
+  const keyCode = event.key;
+  const key = document.querySelector(`.key[data-key="${keyCode}"]`);
+  console.log(key)
+  // if (event.key === keyText.nodeValue) {
+  //   console.log("hi!")
+  // }
+});
+console.log(document.getElementById('space'))
