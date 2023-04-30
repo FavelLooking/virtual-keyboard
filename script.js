@@ -26,6 +26,7 @@ let currentLang = "en"
 
 let isShiftPressed = false;
 let isRussianLang = false;
+let isKeyPressed = false;
 
 
 mainContainer.classList.add("keyboard-container");
@@ -125,9 +126,9 @@ let addSymbolToTextArea = (event) => {
     break;  
     case "Tab":
       event.preventDefault();
-      textArea.value = textArea.value.slice(0, cursorPos) + "    " + textArea.value.slice(cursorPos);
-      textArea.selectionStart = cursorPos + 4;
-      textArea.selectionEnd = cursorPos + 4;
+      textArea.value = textArea.value.slice(0, cursorPos) + "\t" + textArea.value.slice(cursorPos);
+      textArea.selectionStart = cursorPos + 1;
+      textArea.selectionEnd = cursorPos + 1;
     break;
     case "CapsLock":
     break;
@@ -197,9 +198,10 @@ document.addEventListener("keydown", (event) => {
   const keyCode = event.key;
   const key = document.querySelector(`.key[data-key="${keyCode}"]`);
   console.log(event.key, key.dataset.key, key)
-  if (event.key === key.dataset.key) {
+  if (event.key === key.dataset.key && !isKeyPressed) {
     key.classList.toggle("active")
     key.classList.remove("key-dark")
+    isKeyPressed = true;
   }
 });
 document.addEventListener("keyup", (event) => {
@@ -207,6 +209,7 @@ document.addEventListener("keyup", (event) => {
   const key = document.querySelector(`.key[data-key="${keyCode}"]`);
   if (event.key === key.dataset.key) {
     key.classList.toggle("active")
+    isKeyPressed = false;
   }
 });
 
@@ -239,3 +242,26 @@ document.addEventListener("keyup", (event) => {
   }
 });
 
+//TODO 
+/* 
+Virtual keyboard:
+// - fix TAB button (1 tab except 4 spaces)
+- fix CapsLock button
+- fix left/right Shift
+- functional of left/right Ctrl???
+- functional of Win???
+- functional of left/right Alt???
+- fix Space button
+
+Physical keyboard:
+- fix \ button (Uncaught TypeError)
+- fix CapsLock button
+- fix Right Shift
+- fix arrows(function and highlights)
+- fix left/right Ctrl
+- fix of Win
+- fix highlights for right Alt
+
+Additional:
+-fix remove darkstyle from buttons (css property?)
+*/
