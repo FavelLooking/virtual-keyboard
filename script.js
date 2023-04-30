@@ -188,7 +188,6 @@ document.addEventListener('keydown', (event) => {
   console.log(event.key, key.dataset.key, key);
   if (event.key === key.dataset.key /* && !isKeyPressed*/) {
     key.classList.toggle('active');
-    key.classList.remove('key-dark');
   //  isKeyPressed = true;
   }
 });
@@ -248,6 +247,6 @@ Physical keyboard:
 - fix of Win
 - fix highlights for right Alt
 
-Additional:
--fix remove darkstyle from buttons (css property?)
+// Additional:
+// -fix remove darkstyle from buttons (css property?)
 */
