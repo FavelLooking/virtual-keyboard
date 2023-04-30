@@ -30,6 +30,7 @@ let isKeyPressed = false;
 
 mainContainer.classList.add('keyboard-container');
 textArea.classList.add('textarea');
+textArea.setAttribute('autofocus', 'autofocus');
 wrapper.classList.add('wrapper');
 
 document.body.appendChild(wrapper);
@@ -82,12 +83,28 @@ const updateLayout = (layout) => {
         });
         break;
       case 'Del': key.id = 'del';
+      key.dataset.key = "Delete";
         break;
+      case '\\': key.dataset.key = "\\";
+        break;
+      case '▲': 
+      key.dataset.key = "ArrowUp";
+        break;
+      case '▼': 
+      key.dataset.key = "ArrowDown";
+        break;
+      case '◀': 
+      key.dataset.key = "ArrowLeft";
+        break;
+      case '▶': 
+      key.dataset.key = "ArrowRight";
+        break;    
       case 'Enter': key.id = 'enter';
         break;
       case ' ': key.id = 'space';
         break;
-      case 'Ctrl': key.id = 'ctrl';
+      case 'Ctrl': 
+      key.dataset.key = "ControlLeft";
         break;
     }
 
@@ -123,6 +140,7 @@ const addSymbolToTextArea = (event) => {
       textArea.selectionEnd = cursorPos + 1;
       break;
     case 'CapsLock':
+      
       break;
     case 'Shift':
       break;
@@ -194,11 +212,13 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
   const keyCode = event.key;
   const key = document.querySelector(`.key[data-key="${keyCode}"]`);
-  if (event.key === key.dataset.key) {
+  if (event.key === key.dataset.key && event.key !== "CapsLock") {
     key.classList.toggle('active');
   //  isKeyPressed = false;
   }
 });
+
+// Change language
 
 document.addEventListener('keydown', (event) => {
   if (event.altKey && event.shiftKey) {
@@ -227,11 +247,21 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
+document.addEventListener('keydown', (event) => {
+  const key = document.querySelector(`.key[data-key="${event.key}"]`);
+  if (event.getModifierState('CapsLock') && event.key === "CapsLock") {
+    key.classList.add('active')
+  }
+})
+
 // TODO
 /*
 Virtual keyboard:
 // - fix TAB button (1 tab except 4 spaces)
 - fix CapsLock button
+  // 1.fix highlighting physical button
+  1.fix highlighting virtual button
+  2.fix functional for VB
 - fix left/right Shift
 - functional of left/right Ctrl???
 - functional of Win???
@@ -240,7 +270,7 @@ Virtual keyboard:
 
 Physical keyboard:
 - fix \ button (Uncaught TypeError)
-- fix CapsLock button
+- fix functional CapsLock button
 - fix Right Shift
 - fix arrows(function and highlights)
 - fix left/right Ctrl
