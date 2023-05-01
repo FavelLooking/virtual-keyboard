@@ -102,7 +102,8 @@ const updateLayout = (layout) => {
       case 'Enter': key.id = 'enter';
         break;
       case ' ': key.id = 'space';
-        break;
+      key.dataset.key = " "; 
+        break; 
       case 'Ctrl': 
       key.dataset.key = "ControlLeft";
         break;
@@ -127,10 +128,11 @@ updateLayout();
 const allButtons = document.querySelectorAll('button');
 
 const addSymbolToTextArea = (event) => {
+  console.log(event)
   const cursorPos = textArea.selectionStart;
   textArea.focus();
 
-  switch (event.target.innerText) {
+  switch (event.target.innerHTML) {
     case 'Backspace':
       textArea.value = textArea.value.slice(0, cursorPos - 1) + textArea.value.slice(cursorPos);
       textArea.selectionStart = cursorPos - 1;
@@ -143,7 +145,6 @@ const addSymbolToTextArea = (event) => {
       textArea.selectionEnd = cursorPos + 1;
       break;
     case 'CapsLock':
-      
       break;
     case 'Shift':
       break;
@@ -158,12 +159,26 @@ const addSymbolToTextArea = (event) => {
       textArea.selectionStart = cursorPos + 1;
       textArea.selectionEnd = cursorPos + 1;
       break;
-    // case " ":
-    // event.preventDefault();
-    // textArea.value = textArea.value.slice(0, cursorPos) + " " + textArea.value.slice(cursorPos);
-    // textArea.selectionStart = cursorPos+1;
-    // textArea.selectionEnd = cursorPos+1;
-    // break;
+    case " ":
+    event.preventDefault();
+    textArea.value = textArea.value.slice(0, cursorPos) + " " + textArea.value.slice(cursorPos);
+    textArea.selectionStart = cursorPos+1;
+    textArea.selectionEnd = cursorPos+1;
+    break;
+    // case '▲': 
+    // key.dataset.key = "ArrowUp";
+    //   break;
+    // case '▼': 
+    // key.dataset.key = "ArrowDown";
+    //   break;
+    case '◀': 
+    textArea.selectionStart = cursorPos-1;
+    textArea.selectionEnd = cursorPos-1;
+      break;
+    case '▶': 
+    textArea.selectionStart = cursorPos+1;
+    textArea.selectionEnd = cursorPos+1;
+      break;    
     case 'Ctrl':
       break;
     case 'Win':
@@ -189,13 +204,15 @@ textArea.addEventListener('click', () => {
 });
 textArea.addEventListener('keydown', (e) => {
   cursorPos = textArea.selectionStart;
+  console.log(e)
 
   if (e.key === 'Tab') {
     e.preventDefault();
-    textArea.value = `${textArea.value.slice(0, cursorPos)}    ${textArea.value.slice(cursorPos)}`;
-    textArea.selectionStart = cursorPos + 4;
-    textArea.selectionEnd = cursorPos + 4;
-  } if (e.key === ' ') {
+    textArea.value = `${textArea.value.slice(0, cursorPos)}\t${textArea.value.slice(cursorPos)}`;
+    textArea.selectionStart = cursorPos + 1;
+    textArea.selectionEnd = cursorPos + 1;
+  } if (e.code === 'Space') {
+    e.preventDefault();
     textArea.value = `${textArea.value.slice(0, cursorPos)} ${textArea.value.slice(cursorPos)}`;
     textArea.selectionStart = cursorPos + 1;
     textArea.selectionEnd = cursorPos + 1;
@@ -204,10 +221,11 @@ textArea.addEventListener('keydown', (e) => {
 
 // virtual keyboard button highlight when pressing on keyboard
 document.addEventListener('keydown', (event) => {
+  console.log(event)
   const keyCode = event.key;
   const key = document.querySelector(`.key[data-key="${keyCode}"]`);
   console.log(event.key, key.dataset.key, key);
-  if (event.key === key.dataset.key /* && !isKeyPressed*/) {
+  if (event.key === key.dataset.key || event.code === key.dataset.key) {
     key.classList.toggle('active');
   //  isKeyPressed = true;
   }
