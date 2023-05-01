@@ -15,12 +15,13 @@ for (let i = 0; i < relArray.length && i < hrefArray.length; i=i+1) {
 const wrapper = document.createElement('div');
 const textArea = document.createElement('textarea');
 const mainContainer = document.createElement('div');
-let keys = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Del', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '▲', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '◀', '▼', '▶', 'Ctrl'];
+let keysEngLower = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Del', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '▲', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '◀', '▼', '▶', 'Ctrl'];
 const keysEngShifted = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|', 'Del', 'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', 'Enter', 'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '▲', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '◀', '▼', '▶', 'Ctrl'];
 const keysRusLower = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Del', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '▲', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '◀', '▼', '▶', 'Ctrl'];
 const keysRusShifted = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '/', 'Del', 'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Enter', 'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', '▲', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '◀', '▼', '▶', 'Ctrl'];
 let layout = 'en';
 let currentLang = 'en';
+let keys;
 
 // Implement shift for eng keys
 
@@ -37,26 +38,21 @@ document.body.appendChild(wrapper);
 wrapper.appendChild(textArea);
 wrapper.appendChild(mainContainer);
 
-if (isShiftPressed && isRussianLang) {
-  layout = 'ru-shift';
-} else if (!isShiftPressed && isRussianLang) {
-  layout = 'ru';
-} else if (isShiftPressed && !isRussianLang) {
-  layout = 'eng-shift';
-} else {
-  layout = 'en';
-}
 
-const updateLayout = (layout) => {
-  console.log(layout);
-  switch (layout) {
-    case 'eng-shift': keys = keysEngShifted;
-      break;
-    case 'ru': keys = keysRusLower;
-      break;
-    case 'ru-shift': keys = keysRusShifted;
-      break;
+
+const updateLayout = () => {
+
+  if (isShiftPressed && isRussianLang) {
+    keys = keysRusShifted;
+  } else if (!isShiftPressed && isRussianLang) {
+    keys = keysRusLower;
+  } else if (isShiftPressed && !isRussianLang) {
+    keys = keysEngShifted;
+  } else {
+    keys = keysEngLower
   }
+
+  console.log(isShiftPressed)
 
   mainContainer.innerHTML = '';
 
@@ -110,6 +106,8 @@ const updateLayout = (layout) => {
       case 'Win': 
       key.dataset.key = "Meta";
         break;
+        default:
+          break;
     }
 
     if (singleKey === 'Backspace' || singleKey === 'Tab' || singleKey === 'Del' || singleKey === 'Enter' || singleKey === 'CapsLock' || singleKey === 'Enter' || singleKey === 'Shift' || singleKey === 'Ctrl' || singleKey === '▶' || singleKey === '◀' || singleKey === '▼' || singleKey === '▲' || singleKey === 'Win' || singleKey === 'Alt') {
@@ -120,16 +118,14 @@ const updateLayout = (layout) => {
 
 updateLayout();
 
-// let want = document.querySelector('.key[data-key="Shift"]')
-// want.addEventListener("click",updateLayout)
-
 // pressing buttons on virtual keyboard
 
 const allButtons = document.querySelectorAll('button');
+let cursorPos = 0;
 
 const addSymbolToTextArea = (event) => {
   console.log(event)
-  const cursorPos = textArea.selectionStart;
+  cursorPos = textArea.selectionStart;
   textArea.focus();
 
   switch (event.target.innerHTML) {
@@ -144,8 +140,9 @@ const addSymbolToTextArea = (event) => {
       textArea.selectionStart = cursorPos + 1;
       textArea.selectionEnd = cursorPos + 1;
       break;
-    case 'CapsLock':
-      break;
+    // case 'CapsLock':
+    //   event.getModifierState('CapsLock') = true;
+    //   break;
     case 'Shift':
       break;
     case 'Del':
@@ -191,6 +188,12 @@ const addSymbolToTextArea = (event) => {
   }
 };
 
+//CapsLock
+
+const capsLockButton = document.querySelector('.key[data-key="CapsLock"]');
+capsLockButton.dispatchEvent(new KeyboardEvent('keydown', {keyCode: 20}));
+capsLockButton.dispatchEvent(new KeyboardEvent('keyup', {keyCode: 20}));
+
 for (let i = 0; i < allButtons.length; i=i+1) {
   allButtons[i].addEventListener('click', addSymbolToTextArea);
 }
@@ -204,7 +207,6 @@ textArea.addEventListener('click', () => {
 });
 textArea.addEventListener('keydown', (e) => {
   cursorPos = textArea.selectionStart;
-  console.log(e)
 
   if (e.key === 'Tab') {
     e.preventDefault();
@@ -227,7 +229,6 @@ document.addEventListener('keydown', (event) => {
   console.log(event.key, key.dataset.key, key);
   if (event.key === key.dataset.key || event.code === key.dataset.key) {
     key.classList.toggle('active');
-  //  isKeyPressed = true;
   }
 });
 document.addEventListener('keyup', (event) => {
@@ -235,25 +236,25 @@ document.addEventListener('keyup', (event) => {
   const key = document.querySelector(`.key[data-key="${keyCode}"]`);
   if (event.key === key.dataset.key && event.key !== "CapsLock") {
     key.classList.toggle('active');
-  //  isKeyPressed = false;
   }
 });
-
-// Change language
 
 document.addEventListener('keydown', (event) => {
   if (event.altKey && event.shiftKey) {
     currentLang = currentLang === 'en' ? 'ru' : 'en';
     isRussianLang = currentLang === 'ru';
-  }
-});
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Shift') {
+    updateLayout(isRussianLang);
+  } else if (event.key === 'Shift') {
     isShiftPressed = true;
-    for (let i = 0; i < keys.length; i=i+1) {
+    for (let i = 0; i < keys.length; i = i + 1) {
       allButtons[i].innerText = isRussianLang ? keysRusShifted[i] : keysEngShifted[i];
     }
+    updateLayout(isShiftPressed);
+  } else if (event.getModifierState('CapsLock')) {
+    for (let i = 0; i < keys.length; i = i + 1) {
+      allButtons[i].innerText = isRussianLang ? keysRusShifted[i] : keysEngShifted[i];
+    }
+    updateLayout();
   } else if (isRussianLang) {
     event.preventDefault();
   }
@@ -262,36 +263,17 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
   if (event.key === 'Shift') {
     isShiftPressed = false;
-    for (let i = 0; i < keys.length; i=i+1) {
-      allButtons[i].innerText = isRussianLang ? keysRusLower[i] : keys[i];
+    for (let i = 0; i < keys.length; i = i + 1) {
+      allButtons[i].innerText = isRussianLang ? keysRusLower[i] : keysEngLower[i];
+    }
+    updateLayout(isShiftPressed);
+  } else if (event.key === 'CapsLock') {
+    isShiftPressed = false;
+    for (let i = 0; i < keys.length; i = i + 1) {
+      allButtons[i].innerText = isRussianLang ? keysRusLower[i] : keysEngLower[i];
     }
   }
 });
-
-//CapsLock
-
-document.addEventListener('keydown', (event) => {
-  const key = document.querySelector(`.key[data-key="${event.key}"]`);
-  if (event.getModifierState('CapsLock')) {
-    for (let i = 0; i < keys.length; i=i+1) {
-      allButtons[i].innerText = isRussianLang ? keysRusShifted[i] : keysEngShifted[i];
-    } 
-  } else if 
-    (!isShiftPressed){
-    for (let i = 0; i < keys.length; i=i+1) {
-      allButtons[i].innerText = isRussianLang ? keysRusLower[i] : keys[i];
-    }
-  }
-})
-
-// document.addEventListener('keyup', (event) => {
-//   if (event.key === 'CapsLock') {
-//     isShiftPressed = false;
-//     for (let i = 0; i < keys.length; i=i+1) {
-//       allButtons[i].innerText = isRussianLang ? keysRusLower[i] : keys[i];
-//     }
-//   }
-// });
 
 // TODO
 /*
