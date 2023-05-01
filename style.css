@@ -37,6 +37,17 @@
   width: 42.6px;
 }
 
+p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cccccc92;
+  border-radius: 5px;
+  background-color:rgb(110, 104, 101);
+  font-family: 'Roboto', sans-serif;
+  color: #fafafa;
+}
+
 button:hover {
   background-color: #f6fd72c5;
   color: #67237F	
@@ -75,6 +86,6 @@ button.active {
 }
 
 #ctrl{
-  width: 45px;
+  width: 46px;
 }
 
