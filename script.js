@@ -106,6 +106,9 @@ const updateLayout = (layout) => {
       case 'Ctrl': 
       key.dataset.key = "ControlLeft";
         break;
+      case 'Win': 
+      key.dataset.key = "Meta";
+        break;
     }
 
     if (singleKey === 'Backspace' || singleKey === 'Tab' || singleKey === 'Del' || singleKey === 'Enter' || singleKey === 'CapsLock' || singleKey === 'Enter' || singleKey === 'Shift' || singleKey === 'Ctrl' || singleKey === '▶' || singleKey === '◀' || singleKey === '▼' || singleKey === '▲' || singleKey === 'Win' || singleKey === 'Alt') {
@@ -247,12 +250,30 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
+//CapsLock
+
 document.addEventListener('keydown', (event) => {
   const key = document.querySelector(`.key[data-key="${event.key}"]`);
-  if (event.getModifierState('CapsLock') && event.key === "CapsLock") {
-    key.classList.add('active')
+  if (event.getModifierState('CapsLock')) {
+    for (let i = 0; i < keys.length; i=i+1) {
+      allButtons[i].innerText = isRussianLang ? keysRusShifted[i] : keysEngShifted[i];
+    } 
+  } else if 
+    (!isShiftPressed){
+    for (let i = 0; i < keys.length; i=i+1) {
+      allButtons[i].innerText = isRussianLang ? keysRusLower[i] : keys[i];
+    }
   }
 })
+
+// document.addEventListener('keyup', (event) => {
+//   if (event.key === 'CapsLock') {
+//     isShiftPressed = false;
+//     for (let i = 0; i < keys.length; i=i+1) {
+//       allButtons[i].innerText = isRussianLang ? keysRusLower[i] : keys[i];
+//     }
+//   }
+// });
 
 // TODO
 /*
